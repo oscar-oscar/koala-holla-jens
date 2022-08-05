@@ -51,21 +51,19 @@ const currentInventory = [
         ready: 'Yes',
         notes: 'Has a pet iguana'
     }  
-  ];
+];
 
 // GET
-koalaRouter.get('/', (req, res) => {
-    res.send(currentInventory); // status 200
-    res.sendStatus(200);
+koalaRouter.get('/', (req, res) =>{
+    res.send(currentInventory);
 });
 
 // POST
 koalaRouter.post('/', (req, res) => {
     const koala = req.body;
     currentInventory.push(koala);
-    res.sendStatus(200);
+    res.sendStatus(201);
   });
-
 
 // PUT
 
