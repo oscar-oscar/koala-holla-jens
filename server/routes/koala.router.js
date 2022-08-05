@@ -56,11 +56,13 @@ const currentInventory = [
 // GET
 koalaRouter.get('/', (req, res) =>{
     res.send(currentInventory);
+    console.log(currentInventory);
 });
 
 // POST
 koalaRouter.post('/', (req, res) => {
     const koala = req.body;
+    console.log('koala',koala);
     currentInventory.push(koala);
     res.sendStatus(201);
   });
