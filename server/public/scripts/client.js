@@ -9,6 +9,29 @@ $( document ).ready( function(){
 
 }); // end doc ready
 
+
+function sendKoalaToServer(){
+  console.log('in sendKoalasToServer');
+  //sending info 
+  $.ajax({
+    type: 'POST',
+    url: '/koalas',
+    data: {
+      name: $('#nameIn').val(),
+      age:  $('#ageIn').val(),
+      gender: $('#genderIn').val(),
+      ready: $('#readyForTransferIn').val(),
+      notes: $('#notesIn').val(),
+    }
+  }).then(function (response){
+    getSongs();
+
+  }).catch(function (error){
+    console.log(error);
+    alert('something went wrong');
+  });
+}
+
 function setupClickListeners() {
   $( '#addButton' ).on( 'click', function(){
     console.log( 'in addButton on click' );
@@ -30,6 +53,29 @@ function setupClickListeners() {
 function getKoalas(){
   console.log( 'in getKoalas' );
   // ajax call to server to get koalas
+  $.ajax({
+    type: 'GET',
+    url: '/koalas'
+   }).then({
+    function(response){
+      console.log(response);
+      $('#viewKoalas').empty();
+      for(let koala of response) {
+        $('#viewKoalas').append(`
+        <tr>
+          <td>${koala.name}</td>
+          <td>${koala.gender}</td>
+          <td>${koala.age}</td>
+          <td>${koala.ready}</td>
+          <td>${koala.notes}</td>
+        </tr>
+        `)
+      }
+    }
+   }).catch(function(error){
+    console.log('error');
+    alert('Something went wrong!');
+   });
   
 } // end getKoalas
 
