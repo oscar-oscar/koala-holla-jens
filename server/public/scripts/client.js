@@ -11,20 +11,19 @@ $( document ).ready( function(){
 
 function setupClickListeners() {
   $( '#addButton' ).on( 'click', sendKoalaToServer);}
-  
-  //   console.log( 'in addButton on click' );
+    console.log( 'in addButton on click' );
   //   // get user input and put in an object
   //   // NOT WORKING YET :(
   //   // using a test object
-  //   let koalaToSend = {
-  //     name: $('#nameIn').val(),
-  //     age: $('#ageIn').val(),
-  //     gender: $('#genderIn').val(),
-  //     ready: $('#readyForTransferIn').val(),
-  //     notes: $('#notesIn').val()
-  //   };
-  //   // call saveKoala with the new obejct
-  //   saveKoala( koalaToSend );
+    // let koalaToSend = {
+    //   name: '',
+    //   age: '',
+    //   gender: '',
+    //   ready: '',
+    //   notes: '',
+    // };
+     // call saveKoala with the new obejct
+  saveKoala( koalaToSend );
 
 
 function getKoalas(){
@@ -56,6 +55,13 @@ function getKoalas(){
 function saveKoala( newKoala ){
   console.log( 'in saveKoala', newKoala );
    // ajax call to server to get koalas
+   $.ajax({
+    type: 'POST',
+    url:'/koalas'
+   }).then(function (response){
+    console.log('x',response);
+
+   })
 } // end saveKoala
 
 function sendKoalaToServer () {
@@ -76,4 +82,8 @@ function sendKoalaToServer () {
     console.log('error');
     alert('Something Is Wrong');
   })
+}
+
+function markReady(){
+  console.log('in markReady');
 }
