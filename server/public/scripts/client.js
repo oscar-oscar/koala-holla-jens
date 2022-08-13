@@ -3,17 +3,18 @@ console.log('js');
 $(document).ready(function () {
   console.log('JQ');
   // Establish Click Listeners
-  setupClickListeners()
+  setupClickListeners();
+  $('body').on('click', '.delete-koala', deleteKoala);
+
   // load existing koalas on page load
   getKoalas();
 }); // end doc ready
 
 function setupClickListeners() {
+  $('.delete-koala').on('click', deleteKoala);
   $('#addButton').on('click', function () {
     console.log('in addButton on click');
-    // get user input and put in an object
-    // NOT WORKING YET :(
-    // using a test object
+
     if ($('#genderIn').val() === '') {
       alert('Choose Male or Female');
       return;
@@ -31,8 +32,27 @@ function setupClickListeners() {
       // call saveKoala with the new obejct
       saveKoala(koalaToSend);
       emptyInputs();
+
+
     }
   });
+}
+
+function deleteKoala() {
+  console.log('inDelete koala');
+  const koalaId = $(this).data('id');
+  $.ajax({
+    type: 'DELETE',
+    //deleting koala in /koals using koalaId
+    url: `/koalas/${koalaId}`
+  }).then(function (response) {
+    console.log(response);
+    getKoalas();
+  }).catch(function (error) {
+    console.log(error);
+    alert('something went wrong');
+  });
+
 }
 
 function getKoalas() {
@@ -50,25 +70,31 @@ function getKoalas() {
       if (`${koala.ready}` === 'false') {
         $('#viewKoalas').append(`
         <tr>
-        <td>${koala.name}</td>
-        <td>${koala.age}</td>
-        <td>${koala.gender}</td>
-        <td>${koala.ready}</td>
-        <td>${koala.notes}</td>
-        <td><button>Ready for Transfer</button></td>
-        <td><button>Delete</button></td>
-      </tr>
-        `);
-      } else {
-        $('#viewKoalas').append(`
-        <tr>
+        <td>${koala.id}</td>
         <td>${koala.name}</td>
         <td>${koala.age}</td>
         <td>${koala.gender}</td>
         <td>${koala.ready}</td>
         <td>${koala.notes}</td>
         <td></td>
-        <td><button>Delete</button></td>
+        <td>
+          <button class="delete-koala" data-id="${koala.id}">Delete</button>
+        <td>
+      </tr>
+        `);
+      } else {
+        $('#viewKoalas').append(`
+        <tr>
+        <td>${koala.id}</td>
+        <td>${koala.name}</td>
+        <td>${koala.age}</td>
+        <td>${koala.gender}</td>
+        <td>${koala.ready}</td>
+        <td>${koala.notes}</td>
+        <td><button class="ready-transfer" datat id="${koala.ready}">Ready for Transfer</button></td>
+        <td>
+          <button class="delete-koala" data-id="${koala.id}">Delete</button>
+        <td>
       </tr>
         `);
       }

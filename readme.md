@@ -52,3 +52,26 @@ Upon completion of the project you'll need to provide not only the source (via G
 Your final product may look something like this:
 
 ![sample](sample.png)
+
+
+### TO DO
+- [x] Post Route on client to server
+- [x] Server side post handling 
+- [X] server side get handling
+- [X] Get route on client from server
+
+- [x] Move get/post to router
+- [x] add delete and ready for transfer buttons
+- [x] add drop down functions for gender and transfer columns
+- [x] empty input fields on add koala
+
+--DATA BASE SIDE 
+- [] add PG to start script in package.json (stop server before doing this) to connect to DB
+- [] Create new DB in Postico 
+- CREATE TABLE
+- add pool.js to MODULES folder 
+
+
+
+
+- [ ] Styling 
